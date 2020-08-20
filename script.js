@@ -3,6 +3,11 @@ const nextImageButton = document.getElementById("nextImage");
 const clickableImagesContainer = document.getElementById(
     "clickableImagesContainer"
 );
+const change = document.getElementById("change");
+const image1 = document.getElementById("1");
+const image2 = document.getElementById("2");
+const image3 = document.getElementById("3");
+const imgs = Array.from(document.getElementsByClassName("img"));
 
 let imageArr = [
     "https://cdn.pixabay.com/photo/2016/03/26/13/09/notebook-1280538_960_720.jpg",
@@ -14,9 +19,7 @@ console.log(image);
 let i = 0;
 const slide = () =>
     setTimeout(() => {
-        clickableImagesContainer.innerHTML = "";
         nextImage();
-        changeLitlePictures();
         slide();
     }, 3000);
 
@@ -24,7 +27,7 @@ slide();
 
 const nextImage = () => {
     i++;
-    if (i > 2) {
+    if (i > imageArr.length - 1) {
         i = 0;
     }
     image.src = imageArr[i];
@@ -32,7 +35,7 @@ const nextImage = () => {
 const prevImage = () => {
     i--;
     if (i < 0) {
-        i = 2;
+        i = imageArr.length - 1;
     }
     image.src = imageArr[i];
 };
@@ -44,19 +47,10 @@ nextImageButton.addEventListener("click", () => {
     nextImage();
 });
 
-function changeLitlePictures() {
-    imageArr.forEach((image, index) => {
-        const imageContainerDiv = document.createElement("DIV");
-        const imageTag = document.createElement("IMG");
-
-        imageContainerDiv.classList = "litleImageContainer";
-        imageTag.classList = "image";
-
-        imageTag.src = imageArr[index];
-
-        imageContainerDiv.appendChild(imageTag);
-
-        clickableImagesContainer.appendChild(imageContainerDiv);
+imgs.forEach((img) => {
+    img.src = imageArr[img.id];
+    img.addEventListener("click", () => {
+        image.src = imageArr[img.id];
+        i = img.id;
     });
-}
-changeLitlePictures();
+});
