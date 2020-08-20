@@ -1,5 +1,8 @@
 const prevImageButton = document.getElementById("prevImage");
 const nextImageButton = document.getElementById("nextImage");
+const clickableImagesContainer = document.getElementById(
+    "clickableImagesContainer"
+);
 
 let imageArr = [
     "https://cdn.pixabay.com/photo/2016/03/26/13/09/notebook-1280538_960_720.jpg",
@@ -7,10 +10,13 @@ let imageArr = [
     "https://cdn.pixabay.com/photo/2013/11/05/23/55/coffee-206142_960_720.jpg",
 ];
 let image = document.getElementsByClassName("image")[0];
+console.log(image);
 let i = 0;
 const slide = () =>
     setTimeout(() => {
+        clickableImagesContainer.innerHTML = "";
         nextImage();
+        changeLitlePictures();
         slide();
     }, 3000);
 
@@ -37,3 +43,20 @@ prevImageButton.addEventListener("click", () => {
 nextImageButton.addEventListener("click", () => {
     nextImage();
 });
+
+function changeLitlePictures() {
+    imageArr.forEach((image, index) => {
+        const imageContainerDiv = document.createElement("DIV");
+        const imageTag = document.createElement("IMG");
+
+        imageContainerDiv.classList = "litleImageContainer";
+        imageTag.classList = "image";
+
+        imageTag.src = imageArr[index];
+
+        imageContainerDiv.appendChild(imageTag);
+
+        clickableImagesContainer.appendChild(imageContainerDiv);
+    });
+}
+changeLitlePictures();
