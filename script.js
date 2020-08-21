@@ -50,6 +50,11 @@ nextImageButton.addEventListener("click", () => {
 imgs.forEach((img) => {
     img.src = imageArr[img.id];
     img.addEventListener("click", () => {
+        let id = window.setTimeout(function () {}, 0);
+        while (id--) {
+            window.clearTimeout(id);
+        }
+        slide();
         image.src = imageArr[img.id];
         i = img.id;
     });
